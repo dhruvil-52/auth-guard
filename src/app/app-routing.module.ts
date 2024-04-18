@@ -9,6 +9,7 @@ import { CanActivateGuard } from "./shared/gaurds/can-activate.guard";
 import { CanActivateChildGuard } from "./shared/gaurds/can-activate-child.guard";
 import { CanLoadGuard } from "./shared/gaurds/can-load.guard";
 import { CanDeactivateGuard } from "./shared/gaurds/can-deactivate.guard";
+import { ResolverService } from "./shared/resolver.service";
 
 const routes: Routes = [
     {
@@ -20,6 +21,7 @@ const routes: Routes = [
         path: 'user',
         component: UserComponent,
         canActivateChild: [CanActivateChildGuard],
+        resolve: { user: ResolverService },
         children: [
             {
                 path: 'list', component: UserListComponent

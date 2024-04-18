@@ -11,6 +11,8 @@ import { CanActivateChildGuard } from './shared/gaurds/can-activate-child.guard'
 import { CanActivateGuard } from './shared/gaurds/can-activate.guard';
 import { CanDeactivateGuard } from './shared/gaurds/can-deactivate.guard';
 import { CanLoadGuard } from './shared/gaurds/can-load.guard';
+import { UserService } from './shared/services/user.service';
+import { ResolverService } from './shared/resolver.service';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,7 @@ import { CanLoadGuard } from './shared/gaurds/can-load.guard';
     AppRoutingModule
   ],
   providers: [
-    CanActivateGuard,
-    CanActivateChildGuard,
-    CanDeactivateGuard,
-    CanLoadGuard
+    ResolverService
   ],
   bootstrap: [AppComponent]
 })
