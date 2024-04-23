@@ -22,7 +22,6 @@ const routes: Routes = [
         path: 'user',
         component: UserComponent,
         canActivateChild: [CanActivateChildGuard],
-        data: { preload: true },
         resolve: { user: ResolverService },
         children: [
             {
