@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { UserComponent } from "./user/user.component";
 import { UserListComponent } from "./user/user-list/user-list.component";
@@ -10,6 +10,7 @@ import { CanActivateChildGuard } from "./shared/gaurds/can-activate-child.guard"
 import { CanLoadGuard } from "./shared/gaurds/can-load.guard";
 import { CanDeactivateGuard } from "./shared/gaurds/can-deactivate.guard";
 import { ResolverService } from "./shared/resolver.service";
+import { CustomPreloadingService } from "./shared/services/custom-preloading.service";
 
 const routes: Routes = [
     {
@@ -21,6 +22,7 @@ const routes: Routes = [
         path: 'user',
         component: UserComponent,
         canActivateChild: [CanActivateChildGuard],
+        data: { preload: true },
         resolve: { user: ResolverService },
         children: [
             {
@@ -69,10 +71,20 @@ const routes: Routes = [
     //     canActivate: [CanActivateGuard],
     //     loadChildren: () => import('./categories/categories.module').then((m) => m.CategoriesModule)
     // }
+    {
+        path: 'teams',
+        // preload work only with canActivate not others till I have commit I can't find solution for other guards
+        // canActivate: [CanActivateGuard],
+        data: { preload: true },
+        loadChildren: () => import('./teams/teams.module').then((m) => m.TeamsModule)
+    },
 ]
 @NgModule({
     imports: [
-        RouterModule.forRoot(routes)
+        // preload all modules
+        // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+        // give preloadingStrategy to perticular route module
+        RouterModule.forRoot(routes, { preloadingStrategy: CustomPreloadingService })
     ],
     exports: [
         RouterModule
