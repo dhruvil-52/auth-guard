@@ -73,6 +73,7 @@ const routes: Routes = [
     {
         path: 'teams',
         // preload work only with canActivate not others till I have commit I can't find solution for other guards
+        //  confirmed > preloadingStrategy not working with canLoad guard
         // canActivate: [CanActivateGuard],
         data: { preload: true },
         loadChildren: () => import('./teams/teams.module').then((m) => m.TeamsModule)
